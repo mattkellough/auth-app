@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { FullHeightDiv, Container, H1 } from "../../components/global/Styles";
 
 const StyledContainer = styled(Container)`
@@ -40,10 +41,14 @@ const WatchWrap = styled(Grow1)`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  position: relative;
   img {
     width: 80%;
     height: auto;
     margin-right: 4rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 
@@ -181,6 +186,20 @@ const Colors = styled.div`
   }
 `;
 
+const DURATION = 500;
+
+const TRANSITION_STYLES = {
+  entering: { opacity: 1 },
+  entered: { opacity: 1 },
+  exiting: { opacity: 0 },
+  exited: { opacity: 0 },
+};
+
+const DEFAULT_STATE = {
+  transition: `opacity ${DURATION}ms ease-in-out`,
+  opacity: 1,
+};
+
 const Watch = () => {
   const [color, setColor] = useState("white");
 
@@ -207,10 +226,17 @@ const Watch = () => {
             </Wrap>
           </Grow1>
           <WatchWrap>
-            <img
-              src={`https://res.cloudinary.com/mattkellough/image/upload/v1572192942/${color}-watch.jpg`}
-              alt={`Apple Watch in ${color}`}
-            />
+            <TransitionGroup>
+              <CSSTransition key={color} timeout={DURATION} classNames="fade">
+                {(state) => (
+                  <img
+                    src={`https://res.cloudinary.com/mattkellough/image/upload/v1572192942/${color}-watch.jpg`}
+                    alt={`Apple Watch in ${color}`}
+                    style={{ ...DEFAULT_STATE, ...TRANSITION_STYLES[state] }}
+                  />
+                )}
+              </CSSTransition>
+            </TransitionGroup>
           </WatchWrap>
         </LightGradient>
         <Details>
