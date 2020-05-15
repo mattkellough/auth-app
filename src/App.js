@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-function App() {
+// context to be used for sharing user state
+import UserContext from './context/UserContext';
+
+const App = () => {
+  const [user, setUser] = useState(null);
+ 
   return (
-    <div className="App">
+    <UserContext.Provider value={{ user, setUser }}>
       Hey
-    </div>
+    </UserContext.Provider>
   );
 }
 
