@@ -7,7 +7,7 @@ import {
   FormField,
   InputWrap,
   H1,
-  PageGradient
+  PageGradient,
 } from "../components/global/Styles";
 import useForm from "../hooks/useForm";
 import { Redirect } from "react-router-dom";
@@ -48,8 +48,7 @@ const SignIn = () => {
     const response = await userFetch();
     const results = response.results;
     const emails = results.reduce((acc, obj) => {
-      acc.push(obj.email);
-      return acc;
+      return [...acc, obj.email];
     }, []);
 
     // Grab result from db if exists
