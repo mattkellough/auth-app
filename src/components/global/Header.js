@@ -28,11 +28,11 @@ const Header = ({ location }) => {
           {!user ? (
             currentPage !== "/" && (
               <>
-                {currentPage !== "/sign-in/" && (
-                  <Link to="/sign-in/">Log In</Link>
+                {currentPage !== "/sign-in" && (
+                  <Link to="/sign-in">Log In</Link>
                 )}
-                {currentPage !== "/sign-up/" && (
-                  <Link to="/sign-up/">Sign Up</Link>
+                {currentPage !== "/sign-up" && (
+                  <Link to="/sign-up">Sign Up</Link>
                 )}
               </>
             )
