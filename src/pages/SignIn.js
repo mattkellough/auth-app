@@ -1,10 +1,26 @@
 import React, { useState, useContext } from "react";
+import styled from "styled-components";
+import {
+  Form,
+  ServerMessage,
+  FormWrap,
+  FormField,
+  InputWrap,
+  H1,
+} from "../components/global/Styles";
 import useForm from "../hooks/useForm";
 import { Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import userFetch from "../api/userFetch";
 
 // EMAIL MUST BE 'test@example.com' TO LOGIN
+
+const StyledH1 = styled(H1)`
+  padding-bottom: 0.3rem;
+  text-align: left;
+  width: 100%;
+  text-transform: uppercase;
+`;
 
 const SignIn = () => {
   // Fields to be used for validation
@@ -59,13 +75,13 @@ const SignIn = () => {
   if (!formSuccess) {
     return (
       <div className="sign-in form">
-        {serverMessage && <div className="server-message">{serverMessage}</div>}
-        <form noValidate onSubmit={handleSubmit}>
-          <div className="form-wrap">
-            <h1>Log In</h1>
-            <div className="form-field">
+        {serverMessage && <ServerMessage>{serverMessage}</ServerMessage>}
+        <Form noValidate onSubmit={handleSubmit}>
+          <FormWrap>
+            <StyledH1>Log In</StyledH1>
+            <FormField>
               <label>Email</label>
-              <div className="input">
+              <InputWrap>
                 <input
                   type="email"
                   name="email"
@@ -74,11 +90,11 @@ const SignIn = () => {
                   placeholder="test@example.com"
                 />
                 {errors.email && <p>{errors.email}</p>}
-              </div>
-            </div>
-            <div className="form-field">
+              </InputWrap>
+            </FormField>
+            <FormField>
               <label>Password</label>
-              <div className="input">
+              <InputWrap>
                 <input
                   type="password"
                   name="password"
@@ -87,11 +103,11 @@ const SignIn = () => {
                   placeholder="password"
                 />
                 {errors.password && <p>{errors.password}</p>}
-              </div>
-            </div>
+              </InputWrap>
+            </FormField>
             <button type="submit">Submit</button>
-          </div>
-        </form>
+          </FormWrap>
+        </Form>
       </div>
     );
   } else {
