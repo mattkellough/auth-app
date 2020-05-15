@@ -14,7 +14,7 @@ const StyledContainer = styled(Container)`
 const LightGradient = styled.div`
   background: transparent linear-gradient(180deg, #f2f2f2 0%, #ffffff 50%) 0% 0%
     no-repeat padding-box;
-  width: calc(100% - 43rem);
+  width: calc(100% - 29.2rem);
   height: auto;
   display: flex;
   align-items: center;
@@ -38,7 +38,7 @@ const Grow1 = styled.div`
 const Details = styled.div`
   display: flex;
   align-items: center;
-  width: calc(100% - 43rem);
+  width: calc(100% - 29.2rem);
   margin-top: -10em;
 `;
 
@@ -47,8 +47,8 @@ const IphoneWrap = styled.div`
   align-items: center;
   justify-content: flex-end;
   position: relative;
-  width: 43rem;
-  height: 73rem;
+  width: 29.2rem;
+  height: 56rem;
   overflow: hidden;
   img {
     width: 100%;
@@ -189,8 +189,20 @@ const Iphone = () => {
   };
 
   useEffect(() => {
-    console.log(position);
-  }, [position]);
+    const frontPercent = (100 - position) / 100;
+    const backPercent = 1 - frontPercent;
+
+    smallFrontRef.current.style.opacity =
+      frontPercent > 0.1 ? frontPercent : 0.1;
+    frontRef.current.style.opacity = frontPercent > 0.1 ? frontPercent : 0.1;
+    frontRef.current.style.transform = `translateX(${
+      (1 - frontPercent) * 100
+    }%)`;
+
+    smallBackRef.current.style.opacity = backPercent > 0.1 ? backPercent : 0.1;
+    backRef.current.style.opacity = backPercent > 0.1 ? backPercent : 0.1;
+    backRef.current.style.transform = `translateX(${(1 - backPercent) * 100}%)`;
+  }, [backRef, frontRef, position, smallBackRef, smallFrontRef]);
 
   return (
     <FullHeightDiv>
@@ -213,13 +225,13 @@ const Iphone = () => {
         </LightGradient>
         <IphoneWrap>
           <img
-            src="https://res.cloudinary.com/mattkellough/image/upload/v1589564330/iphone-front.png"
+            src="https://res.cloudinary.com/mattkellough/image/upload/v1589571270/front.png"
             alt="iphone-front"
             ref={frontRef}
             id="front"
           />
           <img
-            src="https://res.cloudinary.com/mattkellough/image/upload/v1589564330/iphone-back.png"
+            src="https://res.cloudinary.com/mattkellough/image/upload/v1589571270/back.png"
             alt="iphone-back"
             ref={backRef}
             id="back"
@@ -238,12 +250,12 @@ const Iphone = () => {
             <Position>
               <Images>
                 <img
-                  src="https://res.cloudinary.com/mattkellough/image/upload/v1589564330/iphone-front.png"
+                  src="https://res.cloudinary.com/mattkellough/image/upload/v1589571270/front.png"
                   alt="iphone-front"
                   ref={smallFrontRef}
                 />
                 <img
-                  src="https://res.cloudinary.com/mattkellough/image/upload/v1589564330/iphone-back.png"
+                  src="https://res.cloudinary.com/mattkellough/image/upload/v1589571270/back.png"
                   alt="iphone-back"
                   ref={smallBackRef}
                 />
