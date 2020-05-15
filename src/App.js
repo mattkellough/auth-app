@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import AuthorizedHome from "./pages/authorized/AuthorizedHome";
 
 // context to be used for sharing user state
@@ -27,6 +28,7 @@ const App = () => {
     <Router>
       <UserContext.Provider value={{ user, setUser }}>
         <Route exact path="/sign-in" component={SignIn} />
+        <Route exact path="/sign-up" component={SignUp} />
         <ProtectedRoute exact path="/authorized" component={AuthorizedHome} />
       </UserContext.Provider>
     </Router>
