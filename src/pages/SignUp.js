@@ -37,23 +37,26 @@ const SignUp = () => {
   const { setUser } = useContext(UserContext);
 
   // Callback to run upon form submission
-  const submitForm = useCallback(async ({ email }) => {
-    const response = await userFetch();
-    const results = response.results;
-    const emails = results.reduce((acc, obj) => {
-      acc.push(obj.email);
-      return acc;
-    }, []);
+  const submitForm = useCallback(
+    async ({ email }) => {
+      const response = await userFetch();
+      const { results } = response;
+      const emails = results.reduce((acc, obj) => {
+        acc.push(obj.email);
+        return acc;
+      }, []);
 
-    if (emails.indexOf(email) !== -1) {
-      setServerMessage("User successfully added");
-      localStorage.setItem("userData", JSON.stringify(results[0]));
-      setUser(results[0]);
-      setFormSuccess(true);
-    } else {
-      setServerMessage("User already exists");
-    }
-  }, [setUser]);
+      if (emails.indexOf(email) !== -1) {
+        setServerMessage("User successfully added");
+        localStorage.setItem("userData", JSON.stringify(results[0]));
+        setUser(results[0]);
+        setFormSuccess(true);
+      } else {
+        setServerMessage("User already exists");
+      }
+    },
+    [setUser]
+  );
 
   // Form objects imported from useForm with callback
   const { handleChange, handleSubmit, values, errors } = useForm(

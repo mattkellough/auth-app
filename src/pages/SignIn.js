@@ -40,7 +40,7 @@ const SignIn = () => {
   const submitForm = useCallback(
     async ({ email, password }) => {
       const response = await userFetch();
-      const results = response.results;
+      const { results } = response;
       const emails = results.reduce((acc, obj) => {
         return [...acc, obj.email];
       }, []);
