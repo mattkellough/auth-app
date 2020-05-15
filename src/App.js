@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { THEME } from "./constants";
+import GlobalStyle from "./components/global/Styles";
 import Header from "./components/global/Header";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
@@ -29,11 +32,14 @@ const App = () => {
   return (
     <Router>
       <UserContext.Provider value={{ user, setUser }}>
-        <Header />
-        <Route exact path="/" component={Home} />
-        <Route exact path="/sign-in" component={SignIn} />
-        <Route exact path="/sign-up" component={SignUp} />
-        <ProtectedRoute exact path="/authorized" component={AuthorizedHome} />
+        <ThemeProvider theme={THEME}>
+          <GlobalStyle />
+          <Header />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/sign-in" component={SignIn} />
+          <Route exact path="/sign-up" component={SignUp} />
+          <ProtectedRoute exact path="/authorized" component={AuthorizedHome} />
+        </ThemeProvider>
       </UserContext.Provider>
     </Router>
   );
