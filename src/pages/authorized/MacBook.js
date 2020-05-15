@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const MacBook = () => {
-    return <div></div>
-}
+  return <div>Hey</div>;
+};
 
 export default MacBook;
