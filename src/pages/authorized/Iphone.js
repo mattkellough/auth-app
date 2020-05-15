@@ -4,7 +4,6 @@ import { FullHeightDiv, Container, H1 } from "../../components/global/Styles";
 
 const StyledContainer = styled(Container)`
   width: calc(100% - 10rem);
-  width: 100%;
   height: auto;
   display: flex;
   align-items: center;
@@ -14,7 +13,7 @@ const StyledContainer = styled(Container)`
 const LightGradient = styled.div`
   background: transparent linear-gradient(180deg, #f2f2f2 0%, #ffffff 50%) 0% 0%
     no-repeat padding-box;
-  width: calc(100% - 29.2rem);
+  width: calc(100% - 39.2rem);
   height: auto;
   display: flex;
   align-items: center;
@@ -38,8 +37,40 @@ const Grow1 = styled.div`
 const Details = styled.div`
   display: flex;
   align-items: center;
-  width: calc(100% - 29.2rem);
-  margin-top: -10em;
+  width: calc(100% - 39.2rem);
+  margin-top: -5rem;
+  margin-bottom: 10rem;
+  input[type="range"] {
+    height: 17px;
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+  }
+  input[type="range"]:focus {
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #f2f2f2;
+    border-radius: 0px;
+    border: 0px solid #000000;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    height: 11px;
+    width: 100px;
+    border-radius: 0px;
+    background: #ff3b30;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -0.5px;
+  }
+  input[type="range"]:focus::-webkit-slider-runnable-track {
+    background: #f2f2f2;
+  }
 `;
 
 const IphoneWrap = styled.div`
@@ -49,7 +80,7 @@ const IphoneWrap = styled.div`
   position: relative;
   width: 29.2rem;
   height: 56rem;
-  overflow: hidden;
+  margin-right: 10rem;
   img {
     width: 100%;
     height: 100%;
@@ -148,6 +179,7 @@ const Position = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   width: 20rem;
+  margin-left: 2rem;
 `;
 
 const Images = styled.div`
@@ -164,16 +196,6 @@ const Images = styled.div`
 const Range = styled.input`
   width: 200px;
   height: 9px;
-  &:-webkit-slider-thumb {
-    box-shadow: 0px 0px 0px #000000;
-    border: 0px solid #000000;
-    height: 15px;
-    width: 50px;
-    border-radius: 0px;
-    background: #65001c;
-    cursor: pointer;
-    -webkit-appearance: none;
-  }
 `;
 
 const Iphone = () => {
@@ -194,13 +216,13 @@ const Iphone = () => {
 
     smallFrontRef.current.style.opacity =
       frontPercent > 0.1 ? frontPercent : 0.1;
-    frontRef.current.style.opacity = frontPercent > 0.1 ? frontPercent : 0.1;
+    frontRef.current.style.opacity = frontPercent;
     frontRef.current.style.transform = `translateX(${
       (1 - frontPercent) * 100
     }%)`;
 
     smallBackRef.current.style.opacity = backPercent > 0.1 ? backPercent : 0.1;
-    backRef.current.style.opacity = backPercent > 0.1 ? backPercent : 0.1;
+    backRef.current.style.opacity = backPercent;
     backRef.current.style.transform = `translateX(${(1 - backPercent) * 100}%)`;
   }, [backRef, frontRef, position, smallBackRef, smallFrontRef]);
 
