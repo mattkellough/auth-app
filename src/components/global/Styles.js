@@ -140,4 +140,13 @@ export const H1 = styled.h1`
   font-size: 2.6rem;
 `;
 
+export const FullHeightDiv = styled.div`
+  height: calc(100% - 5rem);
+`;
+
+export const Container = styled.div`
+  max-width: 180rem;
+  margin: 0 auto;
+`;
+
 export default GlobalStyle;

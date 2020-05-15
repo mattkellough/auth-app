@@ -8,6 +8,9 @@ import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import AuthorizedHome from "./pages/authorized/AuthorizedHome";
+import Iphone from "./pages/authorized/Iphone";
+import MacBook from "./pages/authorized/MacBook";
+import Watch from "./pages/authorized/Watch";
 
 // context to be used for sharing user state
 import UserContext from "./context/UserContext";
@@ -39,6 +42,9 @@ const App = () => {
           <Route exact path="/sign-in" component={SignIn} />
           <Route exact path="/sign-up" component={SignUp} />
           <ProtectedRoute exact path="/authorized" component={AuthorizedHome} />
+          <ProtectedRoute exact path="/iphone" component={Iphone} />
+          <ProtectedRoute exact path="/macbook-pro" component={MacBook} />
+          <ProtectedRoute exact path="/watch" component={Watch} />
         </ThemeProvider>
       </UserContext.Provider>
     </Router>

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import UserContext from "../../context/UserContext";
 
 const Nav = styled.div`
-  background: ${(props) => props.theme.grey};
+  background: ${(props) => props.theme.white};
   padding: 0;
   margin: 0;
   height: 5rem;
@@ -36,12 +36,11 @@ const HeaderLinks = styled.div`
     font-size: 1.6rem;
   }
 
-  button,
-  a:not(.logo) {
+  button {
     border: none;
     border-radius: 2rem;
     background-color: ${(props) => props.theme.primaryColor};
-    color: $white;
+    color: ${(props) => props.theme.white};
     height: 2.4rem;
     line-height: 2.4rem;
     font-size: 1.2rem;
@@ -56,13 +55,42 @@ const HeaderLinks = styled.div`
   }
 `;
 
+const NavLinkButton = styled(NavLink)`
+  border: none;
+  border-radius: 2rem;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.white};
+  height: 2.4rem;
+  line-height: 2.4rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  padding: 0 1rem;
+  cursor: pointer;
+  transition: background-color 150ms linear;
+  text-decoration: none;
+  &:hover {
+    background-color: ${(props) => props.theme.secondaryColor};
+  }
+`;
+
 const Logo = styled(Link)`
   border-radius: 0;
-  height: 4rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  background: ${(props) => props.theme.black};
   img {
-    height: 100%;
+    padding: 1rem;
+    height: calc(100% - 2rem);
     width: auto;
   }
+`;
+
+const TextLink = styled(NavLink)`
+  text-decoration: none;
+  color: ${props => props.theme.grey};
+  font-size: 1.6rem;
+  margin: 0 1rem !important;
 `;
 
 const Header = ({ location }) => {
@@ -90,11 +118,42 @@ const Header = ({ location }) => {
         <HeaderLinks>
           {!user ? (
             <>
-              {currentPage !== "/sign-in" && <Link to="/sign-in">Log In</Link>}
-              {currentPage !== "/sign-up" && <Link to="/sign-up">Sign Up</Link>}
+              {currentPage !== "/sign-in" && (
+                <NavLinkButton to="/sign-in">Log In</NavLinkButton>
+              )}
+              {currentPage !== "/sign-up" && (
+                <NavLinkButton to="/sign-up">Sign Up</NavLinkButton>
+              )}
             </>
           ) : (
             <>
+              <TextLink
+                activeStyle={{
+                  fontWeight: "bold",
+                  color: "#000000",
+                }}
+                to="/iphone"
+              >
+                iPhone
+              </TextLink>
+              <TextLink
+                activeStyle={{
+                  fontWeight: "bold",
+                  color: "#000000",
+                }}
+                to="/macbook-pro"
+              >
+                MacBook Pro
+              </TextLink>
+              <TextLink
+                activeStyle={{
+                  fontWeight: "bold",
+                  color: "#000000",
+                }}
+                to="/watch"
+              >
+                Watch
+              </TextLink>
               <p>Hello, {user.firstName}</p>
               <button onClick={signOut}>Log Out</button>
             </>
