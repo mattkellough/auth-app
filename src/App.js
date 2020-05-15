@@ -7,7 +7,10 @@ import AuthorizedHome from "./pages/authorized/AuthorizedHome";
 import UserContext from "./context/UserContext";
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  // check for local storage user object so state can persist
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("userData")) || null
+  );
 
   // Create protected routes that check for user
   const ProtectedRoute = ({ component: Component, ...rest }) => (
