@@ -1,10 +1,27 @@
 import React, { useState, useContext } from "react";
+import styled from "styled-components";
+import {
+  Form,
+  ServerMessage,
+  FormWrap,
+  FormField,
+  InputWrap,
+  H1,
+  PageGradient,
+} from "../components/global/Styles";
 import useForm from "../hooks/useForm";
 import { Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import userFetch from "../api/userFetch";
 
 // EMAIL MUST BE 'test@example.com' TO LOGIN
+
+const StyledH1 = styled(H1)`
+  padding-bottom: 0.3rem;
+  text-align: left;
+  width: 100%;
+  text-transform: uppercase;
+`;
 
 const SignUp = () => {
   // Fields to be used for validation
@@ -47,14 +64,14 @@ const SignUp = () => {
 
   if (!formSuccess) {
     return (
-      <div className="sign-up form">
-        {serverMessage && <div className="server-message">{serverMessage}</div>}
-        <form noValidate onSubmit={handleSubmit} method="post">
-          <div className="form-wrap">
-            <h1>Sign Up</h1>
-            <div className="form-field">
+      <PageGradient>
+        {serverMessage && <ServerMessage>{serverMessage}</ServerMessage>}
+        <Form noValidate onSubmit={handleSubmit} method="post">
+          <FormWrap>
+            <StyledH1>Sign Up</StyledH1>
+            <FormField>
               <label>First Name</label>
-              <div className="input">
+              <InputWrap>
                 <input
                   type="text"
                   name="fname"
@@ -62,11 +79,11 @@ const SignUp = () => {
                   onChange={handleChange}
                 />
                 {errors.fname && <p>{errors.fname}</p>}
-              </div>
-            </div>
-            <div className="form-field">
+              </InputWrap>
+            </FormField>
+            <FormField>
               <label>Last Name</label>
-              <div className="input">
+              <InputWrap>
                 <input
                   type="text"
                   name="lname"
@@ -74,11 +91,11 @@ const SignUp = () => {
                   onChange={handleChange}
                 />
                 {errors.lname && <p>{errors.lname}</p>}
-              </div>
-            </div>
-            <div className="form-field">
+              </InputWrap>
+            </FormField>
+            <FormField>
               <label>Email</label>
-              <div className="input">
+              <InputWrap>
                 <input
                   type="email"
                   name="email"
@@ -87,11 +104,11 @@ const SignUp = () => {
                   placeholder="test@example.com"
                 />
                 {errors.email && <p>{errors.email}</p>}
-              </div>
-            </div>
-            <div className="form-field">
+              </InputWrap>
+            </FormField>
+            <FormField>
               <label>Password (Must be 8 characters or longer)</label>
-              <div className="input">
+              <InputWrap>
                 <input
                   type="password"
                   name="password"
@@ -99,12 +116,12 @@ const SignUp = () => {
                   onChange={handleChange}
                 />
                 {errors.password && <p>{errors.password}</p>}
-              </div>
-            </div>
+              </InputWrap>
+            </FormField>
             <button type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
+          </FormWrap>
+        </Form>
+      </PageGradient>
     );
   } else {
     return <Redirect to="/authorized" />;

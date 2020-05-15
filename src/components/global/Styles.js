@@ -125,6 +125,14 @@ export const InputWrap = styled.div`
   }
 `;
 
+export const PageGradient = styled.div`
+  height: calc(100% - 5rem);
+  background: ${(props) => props.theme.mainGradient};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const H1 = styled.h1`
   font-family: ${(props) => props.theme.font};
   color: ${(props) => props.theme.primaryColor};

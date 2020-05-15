@@ -7,6 +7,7 @@ import {
   FormField,
   InputWrap,
   H1,
+  PageGradient
 } from "../components/global/Styles";
 import useForm from "../hooks/useForm";
 import { Redirect } from "react-router-dom";
@@ -74,7 +75,7 @@ const SignIn = () => {
 
   if (!formSuccess) {
     return (
-      <div className="sign-in form">
+      <PageGradient>
         {serverMessage && <ServerMessage>{serverMessage}</ServerMessage>}
         <Form noValidate onSubmit={handleSubmit}>
           <FormWrap>
@@ -108,7 +109,7 @@ const SignIn = () => {
             <button type="submit">Submit</button>
           </FormWrap>
         </Form>
-      </div>
+      </PageGradient>
     );
   } else {
     return <Redirect to="/authorized" />;
