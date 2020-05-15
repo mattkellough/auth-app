@@ -141,7 +141,7 @@ const Header = ({ location }) => {
                   fontWeight: "bold",
                   color: "#000000",
                 }}
-                to="/macbook-pro"
+                to="/mac-pro"
               >
                 MacBook Pro
               </TextLink>

@@ -23,7 +23,6 @@ const App = () => {
 
   // Create protected routes that check for user
   const ProtectedRoute = ({ component: Component, ...rest }) => (
-    // passed in component as Component and the rest of its properties as ...rest
     <Route
       {...rest}
       render={(props) =>
@@ -33,21 +32,21 @@ const App = () => {
   );
 
   return (
-    <Router>
-      <UserContext.Provider value={{ user, setUser }}>
-        <ThemeProvider theme={THEME}>
-          <GlobalStyle />
+    <UserContext.Provider value={{ user, setUser }}>
+      <ThemeProvider theme={THEME}>
+        <GlobalStyle />
+        <Router>
           <Header />
           <Route exact path="/" component={Home} />
           <Route exact path="/sign-in" component={SignIn} />
           <Route exact path="/sign-up" component={SignUp} />
           <ProtectedRoute exact path="/authorized" component={AuthorizedHome} />
           <ProtectedRoute exact path="/iphone" component={Iphone} />
-          <ProtectedRoute exact path="/macbook-pro" component={MacBook} />
+          <ProtectedRoute exact path="/mac-pro" component={MacBook} />
           <ProtectedRoute exact path="/watch" component={Watch} />
-        </ThemeProvider>
-      </UserContext.Provider>
-    </Router>
+        </Router>
+      </ThemeProvider>
+    </UserContext.Provider>
   );
 };
 
