@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import styled from "styled-components";
 import {
   Form,
@@ -23,28 +23,21 @@ const StyledH1 = styled(H1)`
   text-transform: uppercase;
 `;
 
-const SignUp = () => {
-  // Fields to be used for validation
-  const fields = ["fname", "lname", "email", "password"];
+// Fields to be used for validation
+const FIELDS = ["fname", "lname", "email", "password"];
 
+const SignUp = () => {
   // Detect whether or not user exists once form is created
   const [formSuccess, setFormSuccess] = useState(false);
 
   // Server message from attempting to create user
   const [serverMessage, setServerMessage] = useState(null);
 
-  // Form objects imported from useForm with callback
-  const { handleChange, handleSubmit, values, errors } = useForm(
-    submitForm,
-    fields
-  );
-
   // Set user context for global state when form submits
   const { setUser } = useContext(UserContext);
 
   // Callback to run upon form submission
-  async function submitForm() {
-    const email = values.email;
+  const submitForm = useCallback(async ({ email }) => {
     const response = await userFetch();
     const results = response.results;
     const emails = results.reduce((acc, obj) => {
@@ -60,7 +53,13 @@ const SignUp = () => {
     } else {
       setServerMessage("User already exists");
     }
-  }
+  }, [setUser]);
+
+  // Form objects imported from useForm with callback
+  const { handleChange, handleSubmit, values, errors } = useForm(
+    submitForm,
+    FIELDS
+  );
 
   if (!formSuccess) {
     return (

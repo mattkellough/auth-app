@@ -44,9 +44,9 @@ const useForm = (callbackFunction, fields) => {
     // Check for no errors and submit click before running callback
     if (Object.keys(errors).length === 0 && isSubmitting) {
       // Callback function to be defined inside of parent form component
-      callbackFunction();
+      callbackFunction(values);
     }
-  }, [errors]);
+  }, [errors, isSubmitting, callbackFunction, values]);
 
   // return objects to use in parent component
   return {

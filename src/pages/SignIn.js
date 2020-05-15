@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import styled from "styled-components";
 import {
   Form,
@@ -23,54 +23,52 @@ const StyledH1 = styled(H1)`
   text-transform: uppercase;
 `;
 
-const SignIn = () => {
-  // Fields to be used for validation
-  const fields = ["email", "password"];
+// Fields to be used for validation
+const FIELDS = ["email", "password"];
 
+const SignIn = () => {
   // Detect whether or not user exists once form is created
   const [formSuccess, setFormSuccess] = useState(false);
 
   // Server message from attempting to create user
   const [serverMessage, setServerMessage] = useState(null);
 
-  // Form objects imported from useForm with callback
-  const { handleChange, handleSubmit, values, errors } = useForm(
-    submitForm,
-    fields
-  );
-
   // Set user context for global state when form submits
   const { setUser } = useContext(UserContext);
 
   // Callback to run upon form submission
-  async function submitForm() {
-    const email = values.email;
-    const response = await userFetch();
-    const results = response.results;
-    const emails = results.reduce((acc, obj) => {
-      return [...acc, obj.email];
-    }, []);
+  const submitForm = useCallback(
+    async ({ email, password }) => {
+      const response = await userFetch();
+      const results = response.results;
+      const emails = results.reduce((acc, obj) => {
+        return [...acc, obj.email];
+      }, []);
 
-    // Grab result from db if exists
-    const result = results[emails.indexOf(email)] || null;
-    const emailResult = result ? result.email : "";
-    const passwordResult = result ? result.password : "";
+      // Grab result from db if exists
+      const result = results[emails.indexOf(email)] || null;
+      const emailResult = result ? result.email : "";
+      const passwordResult = result ? result.password : "";
 
-    // compare results with values given in inputs
-    if (
-      result &&
-      emailResult === values.email &&
-      passwordResult === values.password
-    ) {
-      setServerMessage(`Welcome Back, ${result.firstName}`);
+      // compare results withgiven in inputs
+      if (result && emailResult === email && passwordResult === password) {
+        setServerMessage(`Welcome Back, ${result.firstName}`);
 
-      localStorage.setItem("userData", JSON.stringify(results[0]));
-      setUser(results[0]);
-      setFormSuccess(true);
-    } else {
-      setServerMessage("Invalid Credentials");
-    }
-  }
+        localStorage.setItem("userData", JSON.stringify(results[0]));
+        setUser(results[0]);
+        setFormSuccess(true);
+      } else {
+        setServerMessage("Invalid Credentials");
+      }
+    },
+    [setUser]
+  );
+
+  // Form objects imported from useForm with callback
+  const { handleChange, handleSubmit, values, errors } = useForm(
+    submitForm,
+    FIELDS
+  );
 
   if (!formSuccess) {
     return (
