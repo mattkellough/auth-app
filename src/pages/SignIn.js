@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import {
   Form,
@@ -37,32 +37,29 @@ const SignIn = () => {
   const { setUser } = useContext(UserContext);
 
   // Callback to run upon form submission
-  const submitForm = useCallback(
-    async ({ email, password }) => {
-      const response = await userFetch();
-      const { results } = response;
-      const emails = results.reduce((acc, obj) => {
-        return [...acc, obj.email];
-      }, []);
+  const submitForm = async ({ email, password }) => {
+    const response = await userFetch();
+    const { results } = response;
+    const emails = results.reduce((acc, obj) => {
+      return [...acc, obj.email];
+    }, []);
 
-      // Grab result from db if exists
-      const result = results[emails.indexOf(email)] || null;
-      const emailResult = result ? result.email : "";
-      const passwordResult = result ? result.password : "";
+    // Grab result from db if exists
+    const result = results[emails.indexOf(email)] || null;
+    const emailResult = result ? result.email : "";
+    const passwordResult = result ? result.password : "";
 
-      // compare results withgiven in inputs
-      if (result && emailResult === email && passwordResult === password) {
-        setServerMessage(`Welcome Back, ${result.firstName}`);
+    // compare results withgiven in inputs
+    if (result && emailResult === email && passwordResult === password) {
+      setServerMessage(`Welcome Back, ${result.firstName}`);
 
-        localStorage.setItem("userData", JSON.stringify(results[0]));
-        setUser(results[0]);
-        setFormSuccess(true);
-      } else {
-        setServerMessage("Invalid Credentials");
-      }
-    },
-    [setUser]
-  );
+      localStorage.setItem("userData", JSON.stringify(results[0]));
+      setUser(results[0]);
+      setFormSuccess(true);
+    } else {
+      setServerMessage("Invalid Credentials");
+    }
+  };
 
   // Form objects imported from useForm with callback
   const { handleChange, handleSubmit, values, errors } = useForm(
